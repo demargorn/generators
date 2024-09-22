@@ -4,25 +4,18 @@ class Team {
    }
 
    [Symbol.iterator]() {
-      let { characters } = this;
+      const { characters } = this;
+      let idx = -1;
 
-      for (let i = 0; i < characters.length; i += 1) {
-         return {
-            next() {
-               if (i >= characters.length) {
-                  return {
-                     value: undefined,
-                     done: true,
-                  };
-               }
-
-               return {
-                  value: characters[i++],
-                  done: false,
-               };
-            },
-         };
-      }
+      return {
+         next() {
+            idx += 1;
+            return {
+               value: characters[idx],
+               done: idx >= characters.length,
+            };
+         },
+      };
    }
 }
 
